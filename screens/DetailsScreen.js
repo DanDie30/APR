@@ -1,136 +1,30 @@
-import React, {useRef, useState} from 'react'
-import {View, Text, StyleSheet, Image, SafeAreaView, Button, TouchableOpacity} from 'react-native';
-import {Picker} from '@react-native-picker/picker';
-import { Avatar, Card, Icon, IconButton, MD3Colors} from 'react-native-paper';
-import DateTimePicker from '@react-native-community/datetimepicker';
+import React, { useState } from 'react';
+import { View, Text, StyleSheet, Image } from 'react-native';
+import ModalScreen from '../components/ModalScreen';
+import TableScreen from '../components/TableScreen';
 
- 
 
 function DetailsScreen() {
-  const [date, setDate] = useState(new Date());
-  const [mode, setMode] = useState('date');
-  const [show, setShow] = useState(false);
+  const [showModal, setShowModal] = useState(false);
 
-  const onChange = (event, selectedDate) => {
-    const currentDate = selectedDate;
-    setShow(false);
-    setDate(currentDate);
+  const toggleModal = () => {
+    setShowModal(!showModal);
   };
 
-  const showMode = (currentMode) => {
-    setShow(true);
-    setMode(currentMode);
-  };
-
-  const showDatepicker = () => {
-    showMode('date');
-  };
-
-
-  ////////////////////////////////
-
-  const [selectedLanguage, setSelectedLanguage] = useState();
-
-  const pickerRef = useRef();
-
-function open() {
-  pickerRef.current.focus();
-}
-
-function close() {
-  pickerRef.current.blur();
-}
   return (
     <View style={styles.container}>
-  
-      
-  <View style={styles.logoContainer}>
-      <Image source={require('../assets/history.png')}></Image>
+      <View style={styles.logoContainer}>
+        <Image source={require('../assets/history.png')} />
       </View>
-    <View>
-
-    <Text style={styles.textHeader}>
-  Historial de Informes
-    </Text>
-   </View>
-
-   <SafeAreaView >
-    <View style={styles.contDate}>
-    <Button onPress={showDatepicker} title="Escoger fecha" color={"#000"}  />
-
+      <View>
+        <Text style={styles.textHeader}>Historial de Informes</Text>
+      </View>
+      <TableScreen showModal={showModal} toggleModal={toggleModal} />
+      <ModalScreen visible={showModal} hideModal={toggleModal} />
     </View>
-      <Text>Fecha seleccionada: {date.toLocaleDateString()}</Text>
-      {show && (
-        <DateTimePicker
-          testID="dateTimePicker"
-          value={date}
-          mode={mode}
-          is24Hour={true}
-          onChange={onChange}
-        />
-      )}
-    </SafeAreaView>
-
-
-
-  <View style={styles.cardView}>
-      <Card.Title
-        title="Informe generado Falla 1" 
-        titleVariant='labelLarge'
-        subtitle="Generado el 26/01/2024"
-        right={() => (
-          <View style={{ flexDirection: 'row', alignItems: 'center', borderTopColor:'#fff', bordertopWidth: 1 }}>
-            <IconButton iconColor={'#000'} icon="eye" size={20} />
-            {/* Agrega otro IconButton aquí */}
-            <IconButton iconColor={'#000'} icon="download" />
-          </View>
-        )}
-      />
-
-<Card.Title
-        title="Informe generado Falla 2" 
-        titleVariant='labelLarge'
-        subtitle="Generado el 27/01/2024"
-        right={() => (
-          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-            <IconButton iconColor={'#000'} icon="eye" size={20} />
-            {/* Agrega otro IconButton aquí */}
-            <IconButton iconColor={'#000'} icon="download" />
-          </View>
-        )}
-      />
-         <Card.Title
-        title="Informe generado Falla 3" 
-        titleVariant='labelLarge'
-        subtitle="Generado el 28/01/2024"
-        right={() => (
-          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-            <IconButton iconColor={'#000'} icon="eye" size={20} />
-            {/* Agrega otro IconButton aquí */}
-            <IconButton iconColor={'#000'} icon="download" />
-          </View>
-        )}
-      />
-         <Card.Title
-        title="Informe generado Falla 4" 
-        titleVariant='labelLarge'
-        subtitle="Generado el 29/01/2024"
-        right={() => (
-          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-            <IconButton iconColor={'#000'} icon="eye" size={20} />
-            {/* Agrega otro IconButton aquí */}
-            <IconButton iconColor={'#000'} icon="download" />
-          </View>
-        )}
-      />
-       
-    </View>
-
-    </View>
-
-
-  )
+  );
 }
+
 const styles = StyleSheet.create({
   contDate:{
 marginBottom: 10,

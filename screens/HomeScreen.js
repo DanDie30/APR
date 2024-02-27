@@ -5,12 +5,15 @@ import { View, Text, TextInput, Button, StyleSheet, Image, TouchableOpacity, Pre
 import * as Sharing from 'expo-sharing';
 import * as Print from 'expo-print';
 import * as ImagePicker from 'expo-image-picker';
+import * as DocumentPicker from 'expo-document-picker';
+import * as FileSystem from 'expo-file-system';
+
+
+
 
 const Tab = createBottomTabNavigator();
 
 const AppTabs = ( {navigation} ) => {
-
-
 
   const pastScreen = () => {
     // Lógica de autenticación aquí
@@ -56,17 +59,14 @@ const AppTabs = ( {navigation} ) => {
         Generador de Informes
       </Text>
          </View>
-
-    
-
-     
+         
 
 
          <View style={styles.formContainer}>
       <Text style={styles.label}>Titulo del Reporte </Text>
       <TextInput style={styles.input} value={title} onChangeText={setTitle} placeholder='Ingrese titulo del reporte' />
       <View style={styles.adjImg}>
-      <Button title="Escoger imagen" onPress={pickImage} color={'#000'} />
+      <Button title="Escoger Archivo" onPress={pickImage} color={'#000'} />
         {imageTitle !== '' && <Text style={styles.importImage}>{imageTitle}</Text>}
       </View>
      
